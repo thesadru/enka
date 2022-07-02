@@ -1,0 +1,51 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[tool.black]
+line-length = 120
+
+[tool.isort]
+profile = "black"
+line_length = 120
+
+[tool.slotscheck]
+require-superclass = true
+require-subclass = true
+exclude-classes = ":.*Meta.*"
+exclude-modules = ".*generator.*"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+[tool.pyright]
+include = ["shinshin"]
+exclude = ["**/__init__.py", "tests/**"]
+
+typeCheckingMode = "strict"
+reportMissingTypeStubs = "none"
+reportImportCycles = "none"
+reportConstantRedefinition = "none"
+reportUnusedFunction = "none"  # Makes usage of validators impossible
+reportPrivateUsage = "none"
+
+[tool.coverage.run]
+source = ["shinshin"]
+omit = ["**/__init__.py", "**/__main__.py"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = false
+sort = "cover"
+exclude_lines = [
+    "\\#\\s*pragma: no cover$",
+    "^\\s*raise$",
+    "^\\s*pass$",
+    "^\\s*except ImportError:$",
+    "^\\s*raise .*$",
+    "^if __name__ == ['\"]__main__['\"]:$",
+    "^\\s*\\.\\.\\.$",
+    "^\\s*(el)?if typing.TYPE_CHECKING:$",
+    "def __pretty__(.*):$",
+]
